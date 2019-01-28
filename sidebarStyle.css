@@ -1,0 +1,38 @@
+/* The sidenav */
+.sidebar {
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-image: linear-gradient(to right, rgb(0, 0, 0) , rgb(87, 87, 87));
+    /*background-color: rgb(48, 48, 48);*/
+    overflow-x: hidden;
+    padding-top: 160px;
+}
+
+/* The navigation menu links */
+.sidebar button {
+    background-color: rgba(0, 0, 0, 0.253);
+    border: none;
+    color: rgb(208, 217, 235);
+    width: 200px;
+    height: 50px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: bold;
+    }
+
+.sidebar button:hover {
+background-color: rgba(170, 170, 170, 0.35);
+color: rgb(255, 255, 255);
+}
+
+.sidebar button:focus {
+background-color: rgb(34, 34, 34);
+color: rgb(255, 255, 255);
+outline:0 !important;
+}
