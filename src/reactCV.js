@@ -4,6 +4,9 @@ class MainApp extends React.Component {
         super(props);
         this.state = { 
             editMode: false,
+            fontColor: "#000000",
+            bgColor: "#ffffff",
+            headerColor: "#eeeeee",
             name: "Ola Nordmann",
             tlf: "12345678",
             email: "email@hotmail.com",
@@ -15,17 +18,27 @@ class MainApp extends React.Component {
                 { duration: "2016-2019", title: "Jobb 2", text: "Info..."}, 
                 { duration: "2013-2016", title: "Jobb 1", text: "Info..."}],
             education: [
-                { duration: "2007-2010", title: "Studie 1", text: "Info..."}, 
-                { duration: "2010-2013", title: "Studie 2", text: "Info..."}],
+                { duration: "2010-2013", title: "Studie 1", text: "Info..."}, 
+                { duration: "2009-2010", title: "Studie 2", text: "Info..."}],
         }; 
+        
     }
 
     render() {
+        this.props.body.style.backgroundColor = this.state.bgColor;
         return (
-            <div>
+            <div style={{color:this.state.fontColor}}>
+            <div className="main">
                 <Siderbar editButton={() => this.setState({editMode: !this.state.editMode})} />
+                {this.state.editMode ? <Style 
+                    fontColor={this.state.fontColor} newFontColor={(c) => {this.setState({fontColor: c.target.value})}}
+                    bgColor={this.state.bgColor} newBgColor={(c) => {this.setState({bgColor: c.target.value})}}
+                    headerColor={this.state.headerColor} newHeaderColor={(c) => {this.setState({headerColor: c.target.value})}}
+                /> : ""}
                 <div className="info">
-                    <h1><EditText editMode={this.state.editMode} type={"text"} update={(text) => this.setState({name: text})} text={this.state.name}/></h1>               
+                    <h1 style={{backgroundColor: this.state.headerColor}}><span className="name">
+                    <EditText editMode={this.state.editMode} type={"text"} update={(text) => this.setState({name: text})} text={this.state.name}/>
+                    </span></h1>               
                     <b>Mobil: </b>
                     <EditText editMode={this.state.editMode} type={"number"} update={(text) => this.setState({tlf: text})} text={this.state.tlf}/><br/>
                     <b>Email: </b>
@@ -33,18 +46,34 @@ class MainApp extends React.Component {
                     <b>Bosted: </b>
                     <EditText editMode={this.state.editMode} type={"text"} update={(text) => this.setState({place: text})} text={this.state.place}/><br/>
                 </div>
-                <h2>Intro</h2>
+                <h2 style={{backgroundColor: this.state.headerColor}}>Intro</h2>
                     <EditArea editMode={this.state.editMode} type={"text"} update={(text) => this.setState({intro: text})} text={this.state.intro} />
                 <br/>
-                <h2>Erfaring</h2>
+                <h2 style={{backgroundColor: this.state.headerColor}}>Erfaring</h2>
                     <List editMode={this.state.editMode} list={this.state.experience} update={(list) => this.setState({experience: list})}/>
-                <h2>Utdanning</h2>
+                <h2 style={{backgroundColor: this.state.headerColor}}>Utdanning</h2>
                     <List editMode={this.state.editMode} list={this.state.education} update={(list) => this.setState({education: list})}/>
-                <h2>Annet</h2>
+                <h2 style={{backgroundColor: this.state.headerColor}}>Annet</h2>
                     <EditArea editMode={this.state.editMode} type={"text"} update={(text) => this.setState({other: text})} text={this.state.other} />
                 <br/>
-            </div>
+            </div></div>
         );
+    }
+}
+
+class Style extends React.Component{
+    constructor(props){
+        super(props)
+    }
+
+    render(){
+        return (
+            <span>
+            Tekstfarge: <input type="color" onChange={this.props.newFontColor} value={this.props.fontColor} />
+            Bakgrunnsfarge: <input type="color" onChange={this.props.newBgColor} value={this.props.bgColor} />
+            Tittelfarge: <input type="color" onChange={this.props.newHeaderColor} value={this.props.headerColor} />
+            </span>
+        );  
     }
 }
 
@@ -124,5 +153,5 @@ function sortListFunc(a, b){
 }
 
 ReactDOM.render(
-    <MainApp />, document.getElementById("MainApp")
+    <MainApp body={document.getElementById("body")}/>, document.getElementById("MainApp")
 );

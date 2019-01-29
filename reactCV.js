@@ -17,6 +17,9 @@ var MainApp = function (_React$Component) {
 
         _this.state = {
             editMode: false,
+            fontColor: "#000000",
+            bgColor: "#ffffff",
+            headerColor: "#eeeeee",
             name: "Ola Nordmann",
             tlf: "12345678",
             email: "email@hotmail.com",
@@ -24,8 +27,9 @@ var MainApp = function (_React$Component) {
             intro: "En intro for å presentere personen...",
             other: "Annen informasjon som kan være relevant...",
             experience: [{ duration: "2020", title: "Jobb 3", text: "Info..." }, { duration: "2016-2019", title: "Jobb 2", text: "Info..." }, { duration: "2013-2016", title: "Jobb 1", text: "Info..." }],
-            education: [{ duration: "2007-2010", title: "Studie 1", text: "Info..." }, { duration: "2010-2013", title: "Studie 2", text: "Info..." }]
+            education: [{ duration: "2010-2013", title: "Studie 1", text: "Info..." }, { duration: "2009-2010", title: "Studie 2", text: "Info..." }]
         };
+
         return _this;
     }
 
@@ -34,84 +38,104 @@ var MainApp = function (_React$Component) {
         value: function render() {
             var _this2 = this;
 
+            this.props.body.style.backgroundColor = this.state.bgColor;
             return React.createElement(
                 "div",
-                null,
-                React.createElement(Siderbar, { editButton: function editButton() {
-                        return _this2.setState({ editMode: !_this2.state.editMode });
-                    } }),
+                { style: { color: this.state.fontColor } },
                 React.createElement(
                     "div",
-                    { className: "info" },
+                    { className: "main" },
+                    React.createElement(Siderbar, { editButton: function editButton() {
+                            return _this2.setState({ editMode: !_this2.state.editMode });
+                        } }),
+                    this.state.editMode ? React.createElement(Style, {
+                        fontColor: this.state.fontColor, newFontColor: function newFontColor(c) {
+                            _this2.setState({ fontColor: c.target.value });
+                        },
+                        bgColor: this.state.bgColor, newBgColor: function newBgColor(c) {
+                            _this2.setState({ bgColor: c.target.value });
+                        },
+                        headerColor: this.state.headerColor, newHeaderColor: function newHeaderColor(c) {
+                            _this2.setState({ headerColor: c.target.value });
+                        }
+                    }) : "",
                     React.createElement(
-                        "h1",
-                        null,
+                        "div",
+                        { className: "info" },
+                        React.createElement(
+                            "h1",
+                            { style: { backgroundColor: this.state.headerColor } },
+                            React.createElement(
+                                "span",
+                                { className: "name" },
+                                React.createElement(EditText, { editMode: this.state.editMode, type: "text", update: function update(text) {
+                                        return _this2.setState({ name: text });
+                                    }, text: this.state.name })
+                            )
+                        ),
+                        React.createElement(
+                            "b",
+                            null,
+                            "Mobil: "
+                        ),
+                        React.createElement(EditText, { editMode: this.state.editMode, type: "number", update: function update(text) {
+                                return _this2.setState({ tlf: text });
+                            }, text: this.state.tlf }),
+                        React.createElement("br", null),
+                        React.createElement(
+                            "b",
+                            null,
+                            "Email: "
+                        ),
+                        React.createElement(EditText, { editMode: this.state.editMode, type: "email", update: function update(text) {
+                                return _this2.setState({ email: text });
+                            }, text: this.state.email }),
+                        React.createElement("br", null),
+                        React.createElement(
+                            "b",
+                            null,
+                            "Bosted: "
+                        ),
                         React.createElement(EditText, { editMode: this.state.editMode, type: "text", update: function update(text) {
-                                return _this2.setState({ name: text });
-                            }, text: this.state.name })
+                                return _this2.setState({ place: text });
+                            }, text: this.state.place }),
+                        React.createElement("br", null)
                     ),
                     React.createElement(
-                        "b",
-                        null,
-                        "Mobil: "
+                        "h2",
+                        { style: { backgroundColor: this.state.headerColor } },
+                        "Intro"
                     ),
-                    React.createElement(EditText, { editMode: this.state.editMode, type: "number", update: function update(text) {
-                            return _this2.setState({ tlf: text });
-                        }, text: this.state.tlf }),
+                    React.createElement(EditArea, { editMode: this.state.editMode, type: "text", update: function update(text) {
+                            return _this2.setState({ intro: text });
+                        }, text: this.state.intro }),
                     React.createElement("br", null),
                     React.createElement(
-                        "b",
-                        null,
-                        "Email: "
+                        "h2",
+                        { style: { backgroundColor: this.state.headerColor } },
+                        "Erfaring"
                     ),
-                    React.createElement(EditText, { editMode: this.state.editMode, type: "email", update: function update(text) {
-                            return _this2.setState({ email: text });
-                        }, text: this.state.email }),
-                    React.createElement("br", null),
+                    React.createElement(List, { editMode: this.state.editMode, list: this.state.experience, update: function update(list) {
+                            return _this2.setState({ experience: list });
+                        } }),
                     React.createElement(
-                        "b",
-                        null,
-                        "Bosted: "
+                        "h2",
+                        { style: { backgroundColor: this.state.headerColor } },
+                        "Utdanning"
                     ),
-                    React.createElement(EditText, { editMode: this.state.editMode, type: "text", update: function update(text) {
-                            return _this2.setState({ place: text });
-                        }, text: this.state.place }),
+                    React.createElement(List, { editMode: this.state.editMode, list: this.state.education, update: function update(list) {
+                            return _this2.setState({ education: list });
+                        } }),
+                    React.createElement(
+                        "h2",
+                        { style: { backgroundColor: this.state.headerColor } },
+                        "Annet"
+                    ),
+                    React.createElement(EditArea, { editMode: this.state.editMode, type: "text", update: function update(text) {
+                            return _this2.setState({ other: text });
+                        }, text: this.state.other }),
                     React.createElement("br", null)
-                ),
-                React.createElement(
-                    "h2",
-                    null,
-                    "Intro"
-                ),
-                React.createElement(EditArea, { editMode: this.state.editMode, type: "text", update: function update(text) {
-                        return _this2.setState({ intro: text });
-                    }, text: this.state.intro }),
-                React.createElement("br", null),
-                React.createElement(
-                    "h2",
-                    null,
-                    "Erfaring"
-                ),
-                React.createElement(List, { editMode: this.state.editMode, list: this.state.experience, update: function update(list) {
-                        return _this2.setState({ experience: list });
-                    } }),
-                React.createElement(
-                    "h2",
-                    null,
-                    "Utdanning"
-                ),
-                React.createElement(List, { editMode: this.state.editMode, list: this.state.education, update: function update(list) {
-                        return _this2.setState({ education: list });
-                    } }),
-                React.createElement(
-                    "h2",
-                    null,
-                    "Annet"
-                ),
-                React.createElement(EditArea, { editMode: this.state.editMode, type: "text", update: function update(text) {
-                        return _this2.setState({ other: text });
-                    }, text: this.state.other }),
-                React.createElement("br", null)
+                )
             );
         }
     }]);
@@ -119,8 +143,36 @@ var MainApp = function (_React$Component) {
     return MainApp;
 }(React.Component);
 
-var Siderbar = function (_React$Component2) {
-    _inherits(Siderbar, _React$Component2);
+var Style = function (_React$Component2) {
+    _inherits(Style, _React$Component2);
+
+    function Style(props) {
+        _classCallCheck(this, Style);
+
+        return _possibleConstructorReturn(this, (Style.__proto__ || Object.getPrototypeOf(Style)).call(this, props));
+    }
+
+    _createClass(Style, [{
+        key: "render",
+        value: function render() {
+            return React.createElement(
+                "span",
+                null,
+                "Tekstfarge: ",
+                React.createElement("input", { type: "color", onChange: this.props.newFontColor, value: this.props.fontColor }),
+                "Bakgrunnsfarge: ",
+                React.createElement("input", { type: "color", onChange: this.props.newBgColor, value: this.props.bgColor }),
+                "Tittelfarge: ",
+                React.createElement("input", { type: "color", onChange: this.props.newHeaderColor, value: this.props.headerColor })
+            );
+        }
+    }]);
+
+    return Style;
+}(React.Component);
+
+var Siderbar = function (_React$Component3) {
+    _inherits(Siderbar, _React$Component3);
 
     function Siderbar(props) {
         _classCallCheck(this, Siderbar);
@@ -249,4 +301,4 @@ function sortListFunc(a, b) {
     return a_to == b_to ? b_from - a_from : b_to - a_to;
 }
 
-ReactDOM.render(React.createElement(MainApp, null), document.getElementById("MainApp"));
+ReactDOM.render(React.createElement(MainApp, { body: document.getElementById("body") }), document.getElementById("MainApp"));
