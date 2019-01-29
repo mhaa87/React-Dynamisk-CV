@@ -119,57 +119,66 @@ var MainApp = function (_React$Component) {
     return MainApp;
 }(React.Component);
 
-var List = function (_React$Component2) {
-    _inherits(List, _React$Component2);
+var Siderbar = function (_React$Component2) {
+    _inherits(Siderbar, _React$Component2);
 
-    function List(props) {
-        _classCallCheck(this, List);
+    function Siderbar(props) {
+        _classCallCheck(this, Siderbar);
 
-        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+        return _possibleConstructorReturn(this, (Siderbar.__proto__ || Object.getPrototypeOf(Siderbar)).call(this, props));
     }
 
-    _createClass(List, [{
+    _createClass(Siderbar, [{
         key: "render",
         value: function render() {
-            var _this4 = this;
-
-            var list = this.props.list;
             return React.createElement(
-                "span",
-                null,
-                this.props.editMode ? React.createElement(
-                    "span",
-                    null,
-                    React.createElement(
-                        "button",
-                        { onClick: function onClick() {
-                                list.push({ duration: "2020", title: "Tittel", text: "Info..." });
-                                _this4.props.update(list);
-                            } },
-                        "Legg til"
-                    ),
-                    React.createElement(
-                        "button",
-                        { onClick: function onClick() {
-                                list.sort(sortListFunc);
-                                _this4.props.update(list);
-                            } },
-                        "Sorter"
-                    )
-                ) : "",
+                "div",
+                { className: "sidebar" },
                 React.createElement(
-                    "div",
-                    null,
-                    React.createElement(ListItems, { editMode: this.props.editMode, list: list, "delete": function _delete(i) {
-                            list.splice(i, 1);_this4.props.update(list);
-                        } })
+                    "button",
+                    { type: "button", onClick: this.props.editButton },
+                    "Rediger"
                 )
             );
         }
     }]);
 
-    return List;
+    return Siderbar;
 }(React.Component);
+
+function List(props) {
+    return React.createElement(
+        "span",
+        null,
+        props.editMode ? React.createElement(
+            "span",
+            null,
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        props.list.unshift({ duration: "2020", title: "Tittel", text: "Info..." });props.update(props.list);
+                    } },
+                "Legg til"
+            ),
+            React.createElement(
+                "button",
+                { onClick: function onClick() {
+                        props.list.sort(sortListFunc);props.update(props.list);
+                    } },
+                "Sorter"
+            )
+        ) : "",
+        React.createElement(
+            "div",
+            null,
+            React.createElement(ListItems, { editMode: props.editMode, list: props.list,
+                "delete": function _delete(i) {
+                    props.list.splice(i, 1);props.update(props.list);
+                } })
+        ),
+        " "
+    );
+}
 
 function ListItems(props) {
     return props.list.map(function (item, index) {
@@ -232,44 +241,12 @@ function EditText(props) {
     return props.text;
 }
 
-var Siderbar = function (_React$Component3) {
-    _inherits(Siderbar, _React$Component3);
-
-    function Siderbar(props) {
-        _classCallCheck(this, Siderbar);
-
-        return _possibleConstructorReturn(this, (Siderbar.__proto__ || Object.getPrototypeOf(Siderbar)).call(this, props));
-    }
-
-    _createClass(Siderbar, [{
-        key: "render",
-        value: function render() {
-            return React.createElement(
-                "div",
-                { className: "sidebar" },
-                React.createElement(
-                    "button",
-                    { type: "button", onClick: this.props.editButton },
-                    "Rediger"
-                )
-            );
-        }
-    }]);
-
-    return Siderbar;
-}(React.Component);
-
 function sortListFunc(a, b) {
-    a_from = 0;a_to = 0;b_from = 0;b_to = 0;
     a_from = a.duration.substring(0, 4);
     a_to = a.duration.length > 8 ? a.duration.substring(5, 9) : a_from;
     b_from = b.duration.substring(0, 4);
     b_to = b.duration.length > 8 ? b.duration.substring(5, 9) : b_from;
-    if (a_to == b_to) {
-        return b_from - a_from;
-    } else {
-        return b_to - a_to;
-    }
+    return a_to == b_to ? b_from - a_from : b_to - a_to;
 }
 
 ReactDOM.render(React.createElement(MainApp, null), document.getElementById("MainApp"));

@@ -48,30 +48,30 @@ class MainApp extends React.Component {
     }
 }
 
-class List extends React.Component{
+class Siderbar extends React.Component{
     constructor(props){
         super(props)
     }
 
     render(){
-        var list = this.props.list;
-        return (
-            <span>
-                {(this.props.editMode) ?
-                <span> 
-                    <button onClick={() => {
-                        list.push({duration: "2020", title: "Tittel", text: "Info..."});
-                        this.props.update(list);
-                    }}>Legg til</button>
-                    <button onClick={() => {
-                        list.sort(sortListFunc);
-                        this.props.update(list);
-                        }}>Sorter</button>
-                </span>
-                    : ""}
-                <div><ListItems editMode={this.props.editMode} list={list} delete={(i) => {list.splice(i, 1); this.props.update(list)}}/></div>
-            </span>);
+        return (        
+        <div className="sidebar">
+            <button type="button" onClick={this.props.editButton}>Rediger</button>
+        </div>);
     }
+}
+
+function List(props){
+    return (<span>
+        {(props.editMode) ?
+        <span> 
+            <button onClick={() => {props.list.unshift({duration: "2020", title: "Tittel", text: "Info..."}); props.update(props.list);}
+            }>Legg til</button>
+            <button onClick={() => {props.list.sort(sortListFunc); props.update(props.list);}
+            }>Sorter</button>
+        </span> : ""}
+        <div><ListItems editMode={props.editMode} list={props.list} 
+        delete={(i) => {props.list.splice(i, 1); props.update(props.list)}}/></div> </span>);
 }
 
 function ListItems(props){
@@ -88,7 +88,7 @@ function ListItems(props){
             <br/><br/>
             <EditArea editMode={props.editMode} type={"text"} editText={(text) => item.text = text} text={item.text} />
             <br/><br/>
-        </span>))
+        </span>));
 }
 
 function EditArea(props){
@@ -115,30 +115,12 @@ function EditText(props) {
     return props.text;
 }
 
-class Siderbar extends React.Component{
-    constructor(props){
-        super(props)
-    }
-
-    render(){
-        return (        
-        <div className="sidebar">
-            <button type="button" onClick={this.props.editButton}>Rediger</button>
-        </div>);
-    }
-}
-
 function sortListFunc(a, b){
-    a_from = 0; a_to = 0; b_from=0; b_to=0;
     a_from = a.duration.substring(0, 4);
     a_to = (a.duration.length > 8) ? a.duration.substring(5, 9) : a_from;
     b_from = b.duration.substring(0, 4);
     b_to = (b.duration.length > 8) ? b.duration.substring(5, 9) : b_from;
-    if(a_to == b_to){
-        return b_from - a_from;
-    }else{
-        return b_to - a_to;
-    }
+    return (a_to == b_to) ?  b_from - a_from : b_to - a_to
 }
 
 ReactDOM.render(
