@@ -1,6 +1,14 @@
 .main{
-    margin-left: 300px; 
-    max-width: 750px;
+    margin-left: 25%; 
+    max-width: 50%;
+}
+
+input{
+    font-family: inherit;
+}
+ 
+textarea{
+    font-family: inherit;
 }
 
 .info{

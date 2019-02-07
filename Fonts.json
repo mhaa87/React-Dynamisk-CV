@@ -1,0 +1,15 @@
+{ "fonts":[
+    {"font": "Georgia, serif", "name": "Georgia"},
+    {"font": "'Palatino Linotype', 'Book Antiqua', 'Palatino, serif'", "name": "Palatino"},
+    {"font": "'Times New Roman', 'Times, serif'", "name": "Times New Roman"},
+    {"font": "'Arial', 'Helvetica, sans-serif'", "name": "Arial"},
+    {"font": "'Arial Black', 'Gadget', 'sans-serif", "name": "Arial Black"},
+    {"font": "'Comic Sans MS', 'cursive', 'sans-serif'", "name": "Comic Sans MS"},
+    {"font": "'Impact', 'Charcoal', 'sans-serif'", "name": "Impact"},
+    {"font": "'Lucida Sans Unicode', 'Lucida Grande', 'sans-serif'", "name": "Lucida Sans"},
+    {"font": "'Tahoma', 'Geneva', 'sans-serif'", "name": "Tahoma"},
+    {"font": "'Trebuchet MS', 'Helvetica', 'sans-serif'", "name": "Trebuchet MS"},
+    {"font": "'Verdana', 'Geneva', 'sans-serif'", "name": "Verdana"},
+    {"font": "'Courier New', 'Courier', 'monospace'", "name": "Courier New"},
+    {"font": "'Lucida Console', 'Monaco', 'monospace'", "name": "Lucida Console"}
+]}
